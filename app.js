@@ -20,3 +20,5 @@ app.use(morgan("dev"));
 app.use("/users", usersRoute);
 app.use("/posts", postsRoute);
 app.use("/profiles", profilesRoute);
+
+module.exports = app;
