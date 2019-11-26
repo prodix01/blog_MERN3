@@ -3,9 +3,12 @@ const router = express.Router();
 const gravatar = require("gravatar");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const passport = require("passport");
 
 
 const userModel = require("../models/users");
+
+const auth_check = passport.authenticate("jwt", {session : false});
 
 //회원가입
 // @route   POST    http://localhost:1234/users/register
@@ -123,8 +126,12 @@ router.post("/login", (req, res) => {
 // @route   GET    http://localhost:1234/users/
 // @desc    get user
 // @access  private
-router.get("/register", (req, res) => {
-
+router.get("/", auth_check, (req, res) => {
+    res.status(200).json({
+        id : req.user.id,
+        name : req.user.name,
+        avatar : req.user.avatar
+    });
 });
 
 
