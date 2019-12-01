@@ -4,16 +4,25 @@ const jwt = require("jsonwebtoken");
 
 const userModel = require("../models/users");
 
+const validateRegisterInput = require("../validation/register");
+
 
 //회원가입
 exports.user_register = (req, res) => {
+
+    const {errors, isValid} = validateRegisterInput(req.body);
+
+    //check validation
+    if (!isValid) {
+        res.status(400).json(errors)
+    }
+
     userModel
         .findOne({email : req.body.email})
         .then(user => {
             if (user) {
-                res.status(400).json({
-                    msg : "이미 계정이 존재합니다."
-                });
+                errors.msg = "이미 존재하는 이메일입니다.";
+                return res.status(400).json(errors);
             }
 
             const avatar = gravatar.url(req.body.email, {
@@ -23,7 +32,7 @@ exports.user_register = (req, res) => {
             });
 
             const newUser = new userModel({
-                name : req.body.userName,
+                name : req.body.name,
                 email : req.body.email,
                 avatar : avatar,
                 password : req.body.password,
