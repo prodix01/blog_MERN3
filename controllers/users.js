@@ -41,17 +41,10 @@ exports.user_register = (req, res) => {
                         msg : "회원가입성공!",
                         userInfo : user
                     });
-                })
-                .catch(err => {
-                    errors.msg = err.message;
-                    res.status(500).json(errors);
                 });
-        })
-        .catch(err => {
-            res.status(500).json({
-                error : err.message
-            });
+
         });
+
 };
 
 
@@ -107,12 +100,8 @@ exports.user_login = (req, res) => {
                         }
                     });
             }
-        })
-        .catch(err => {
-            res.status(500).json({
-                error : err.message
-            });
         });
+
 };
 
 
@@ -121,7 +110,13 @@ exports.user_login = (req, res) => {
 
 //유저정보 삭제
 exports.user_delete = (req, res) => {
-
+    userModel
+        .remove({user : req.user.id})
+        .then(user => {
+            res.status(200).json({
+                msg : "성공적으로 유저정보를 삭제했습니다."
+            });
+        });
 };
 
 

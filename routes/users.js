@@ -36,7 +36,7 @@ router.get("/", auth_check, userController.user_get);
 // @route   DELETE    http://localhost:1234/users/:user_id
 // @desc    delete userInfo
 // @access  private
-router.delete("/:user_id", userController.user_delete);
+router.delete("/", auth_check, userController.user_delete);
 
 
 module.exports = router;
