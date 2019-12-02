@@ -38,6 +38,9 @@ exports.post_profile = (req,res) => {
             new profileModel(profileFields)
                 .save()
                 .then(profile => {
+
+                    console.log(profile);
+
                     if (profile) {
                         profileModel
                             .findOneAndUpdate(

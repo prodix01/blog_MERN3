@@ -5,7 +5,8 @@ mongoose.connect(process.env.MONGO_URI,
     {
         useNewUrlParser: true,
         useUnifiedTopology: true,
-        useCreateIndex: true
+        useCreateIndex: true,
+        useFindAndModify :true
     }
 )
     .then(() => console.log("몽고db 서버를 시작합니다."))
