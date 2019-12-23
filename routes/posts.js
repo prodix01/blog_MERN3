@@ -4,19 +4,12 @@ const passport = require("passport");
 
 const auth_check = passport.authenticate("jwt", {session : false});
 
-const postModel = require("../models/posts");
-const profileModel = require("../models/profiles");
-
-const validatePostInput = require("../validation/post");
 
 const postController = require("../controllers/posts");
 
 
 
 // 포스팅하기
-// @route POST /posts
-// @desc Create post
-// @access private
 // @route POST /posts
 // @desc Create post
 // @access private
@@ -74,6 +67,25 @@ router.post("/like/:post_id", auth_check, postController.like_post);
 // @desc UnLike post
 // @access private
 router.post("/unlike/:post_id", auth_check, postController.unlike_post);
+
+
+
+
+// 포스트 답글 등록
+// @route POST /posts/comment/:post_id
+// @desc Add comment to post
+// access private
+router.post("/comment/:post_id", auth_check, postController.post_comment);
+
+
+
+
+
+// 포스트 답글 삭제
+// @route DELETE /posts/comment/:post_id/:comment_id
+// @desc delete comment to post
+// access private
+router.delete("/comment/:post_id/:comment_id", auth_check, postController.delete_comment);
 
 
 
