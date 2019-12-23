@@ -7,6 +7,8 @@ const auth_check = passport.authenticate("jwt", {session : false});
 const postModel = require("../models/posts");
 const profileModel = require("../models/profiles");
 
+const validatePostInput = require("../validation/post");
+
 
 
 // 포스팅하기
@@ -17,6 +19,14 @@ const profileModel = require("../models/profiles");
 // @desc Create post
 // @access private
 router.post("/", auth_check, (req, res) => {
+
+    const {errors, isValid} = validatePostInput(req.body);
+
+    //check validation
+    if (!isValid) {
+        return res.status(400).json(errors);
+    }
+    
     const newPost = new postModel ({
         text : req.body.text,
         name : req.user.name,
