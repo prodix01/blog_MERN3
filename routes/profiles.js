@@ -35,6 +35,13 @@ router.get("/", auth_check, profileController.get_profile);
 router.delete("/", auth_check, profileController.delete_profile);
 
 
+//핸들 불러오기
+// @route GET profiles/handle/:handle
+// @desc Get profile by handle
+// @ public
+router.get("/handle/:handle", profileController.get_handle);
+
+
 
 
 
