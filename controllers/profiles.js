@@ -165,7 +165,7 @@ exports.get_handle = (req, res) => {
 
 
 //경험 프로필 등록
-exports.post_exp = (req, res) => {
+exports.post_Exp = (req, res) => {
     const {errors, isValid} = validateExpInput(req.body);
 
     //check validation
@@ -206,7 +206,7 @@ exports.post_exp = (req, res) => {
 
 
 //교육 프로필 등록
-exports.post_edu = (req, res) => {
+exports.post_Edu = (req, res) => {
 
     const {errors, isValid} = validateEduInput(req.body);
 
@@ -244,7 +244,7 @@ exports.post_edu = (req, res) => {
 
 
 //경험 프로필 정보삭제
-exports.delete_exp = (req, res) => {
+exports.delete_Exp = (req, res) => {
     profileModel
         .findOne({user : req.user.id})
         .then(profile => {
@@ -273,7 +273,7 @@ exports.delete_exp = (req, res) => {
 
 
 //교육 프로필 정보 삭제
-exports.delete_edu = (req, res) => {
+exports.delete_Edu = (req, res) => {
     profileModel
         .findOne({user : req.user.id})
         .then(profile => {
