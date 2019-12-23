@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import axios from "axios";
 
 class Login extends Component {
 
@@ -29,7 +30,10 @@ class Login extends Component {
             password: this.state.password
         };
 
-        console.log(loginUser);
+        axios
+            .post("/users/login", loginUser)
+            .then(res => console.log(res.data))
+            .catch(err => this.setState({errors : err.response.data}));
     }
 
     render() {
