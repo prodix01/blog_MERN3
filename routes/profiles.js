@@ -43,6 +43,34 @@ router.get("/handle/:handle", profileController.get_handle);
 
 
 
+//경험프로필 등록
+// @route POST profiles/experience/
+// @desc Add experience to profile
+// @ private
+router.post("/experience", auth_check, profileController.post_exp);
+
+
+//교육프로필 등록
+// @route POST profiles/education
+// @desc Add education to profile
+// @access private
+router.post("/education", auth_check, profileController.post_edu);
+
+
+//경험프로필 내용 삭제
+// @route DELETE profiles/experience/exp_id
+// @desc Delete experience from profile
+// @access private
+router.delete("/experience/:exp_id", auth_check, profileController.delete_exp);
+
+
+//교육프로필 내용 삭제
+// @route DELETE profile/education/:edu_id
+// @desc Delete education from profile
+// @access private
+router.delete("/education/:edu_id", auth_check, profileController.delete_edu);
+
+
 
 
 module.exports = router;

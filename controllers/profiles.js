@@ -158,3 +158,144 @@ exports.get_handle = (req, res) => {
             });
         });
 };
+
+
+
+//경험 프로필 등록
+exports.post_exp = (req, res) => {
+    const {errors, isValid} = validateExpInput(req.body);
+
+    //check validation
+    if (!isValid) {
+        return res.status(400).json(errors);
+    }
+    profileModel
+        .findOne({user : req.user.id})
+        .then(profile => {
+            //사용자 입력값 규정
+            const newExp = {
+                title : req.body.title,
+                company : req.body.company,
+                location : req.body.location,
+                from : req.body.from,
+                to : req.body.to,
+                current : req.body.current,
+                description : req.body.description
+            };
+
+            //add to exp array
+            profile.experience.unshift(newExp);
+            profile
+                .save()
+                .then(profile => {
+                    res.status(200).json(profile)
+                })
+                .catch(err => {
+                    errors.msg = err.message;
+                    res.status(404).json(errors);
+                });
+        });
+
+};
+
+
+
+
+
+//교육 프로필 등록
+exports.post_edu = (req, res) => {
+
+    const {errors, isValid} = validateEduInput(req.body);
+
+    //check validation
+    if (!isValid) {
+        res.status(400).json(errors);
+    }
+    profileModel
+        .findOne({user : req.user.id})
+        .then(profile => {
+            const newEdu = {
+                school : req.body.school,
+                degree : req.body.degree,
+                major : req.body.major,
+                from : req.body.from,
+                to : req.body.to,
+                current : req.body.current,
+                description : req.body.description
+            };
+
+            //add to edu array
+            profile.education.unshift(newEdu);
+            profile
+                .save()
+                .then(profile => {
+                    res.status(200).json(profile);
+                })
+                .catch(err => {
+                    errors.msg = err.message;
+                    res.status(404).json(errors);
+                });
+        });
+};
+
+
+
+//경험 프로필 정보삭제
+exports.delete_exp = (req, res) => {
+    profileModel
+        .findOne({user : req.user.id})
+        .then(profile => {
+            //get remove index
+            const removeIndex = profile.experience
+                .map(item => item.id)
+                .indexOf(req.params.exp_id);
+
+            //splice out of array
+            profile.experience.splice(removeIndex, 1);
+
+            //save
+            profile
+                .save()
+                .then(profile => {
+                    res.status(200).json(profile)
+                })
+                .catch(err => {
+                    res.status(400).json({
+                        error : err.message
+                    });
+                });
+        });
+};
+
+
+
+//교육 프로필 정보 삭제
+exports.delete_edu = (req, res) => {
+    profileModel
+        .findOne({user : req.user.id})
+        .then(profile => {
+
+            //get remove index
+
+            const removeIndex = profile.education
+                .map(item => item.id)
+                .indexOf(req.params.edu_id);
+
+            //splice out of array
+            profile.education.splice(removeIndex, 1);
+            //save
+            profile
+                .save()
+                .then(profile => {
+                    res.status(200).json(profile)
+                })
+                .catch(err => {
+                    res.status(400).json({
+                        error : err.message
+                    });
+                });
+
+
+        });
+
+};
