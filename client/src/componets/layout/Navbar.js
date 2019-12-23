@@ -6,7 +6,7 @@ class Navbar extends Component {
         return (
             <nav className="navbar navbar-expand-sm navbar-dark bg-dark mb-4">
                 <div className="container">
-                    <Link className="navbar-brand" to="landing.html">DevConnect</Link>
+                    <Link className="navbar-brand" to="landing">Main</Link>
                     <button
                         className="navbar-toggler"
                         type="button"
@@ -19,19 +19,19 @@ class Navbar extends Component {
                         <ul className="navbar-nav mr-auto">
                             <li className="nav-item">
                                 <Link className="nav-link" to="#">
-                                    {" "}Developers
+                                    {" "}개발자들
                                 </Link>
                             </li>
                         </ul>
                         <ul className="navbar-nav ml-auto">
                             <li className="nav-item">
                                 <Link className="nav-link" to="register">
-                                    Sign up
+                                    회원가입
                                 </Link>
                             </li>
                             <li className="nav-item">
                                 <Link className="nav-link" to="login">
-                                    Login
+                                    로그인
                                 </Link>
                             </li>
                         </ul>

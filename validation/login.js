@@ -12,11 +12,11 @@ module.exports = function validateLoginInput(data) {
     }
 
     if (Validator.isEmpty(data.email)) {
-        errors.email = "이메일이 틀렸습니다."
+        errors.email = "이메일을 입력해주세요!"
     }
 
     if (Validator.isEmpty(data.password)) {
-        errors.password = "패스워드가 틀렸습니다."
+        errors.password = "패스워드를 입력해주세요!"
     }
 
     return {

@@ -26,12 +26,11 @@ module.exports = function validateRegisterInput(data) {
         errors.email = "이메일을 입력해주세요!"
     }
 
-    if (Validator.isEmpty(data.password)) {
-        errors.password = "패스워드를 입력해주세요!"
-    }
-
     if (!Validator.isLength(data.password, {min : 4, max : 20})) {
         errors.password = "비밀번호를 4자 이상 20자 이하로 적어야합니다."
+    }
+    if (Validator.isEmpty(data.password)) {
+        errors.password = "패스워드를 입력해주세요!"
     }
 
     if (Validator.isEmpty(data.password2)) {

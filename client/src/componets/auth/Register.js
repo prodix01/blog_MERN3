@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import axios from "axios";
+import classnames from "classnames";
 
 class Register extends Component {
 
@@ -43,58 +44,78 @@ class Register extends Component {
 
     render() {
         //상태값 재선언
-        const {name, email, password, password2} = this.state;
+        const {name, email, password, password2, errors} = this.state;
 
         return (
             <div className="register">
                 <div className="container">
                     <div className="row">
                         <div className="col-md-8 m-auto">
-                            <h1 className="display-4 text-center">Sign up</h1>
-                            <p className="lead text-center">Create your register account</p>
-                            <form onSubmit={this.onSubmit}>
+                            <h1 className="display-4 text-center">회원가입</h1>
+                            <p className="lead text-center">회원가입후 블로그를 이용해보세요!</p>
+                            <form noValidate onSubmit={this.onSubmit}>
                                 <div className="form-group">
                                     <input
                                         type="text"
-                                        className="form-control form-control-lg"
-                                        placeholder="Name"
+                                        className={classnames("form-control form-control-lg", {
+                                            "is-invalid" : errors.name
+                                        })}
+                                        placeholder="닉네임"
                                         name="name"
                                         value={name}
                                         onChange={this.onChange}
                                     />
+                                    {errors.name && (
+                                        <div className="invalid-feedback">{errors.name}</div>
+                                    )}
                                 </div>
                                 <div className="form-group">
                                     <input
                                         type="email"
-                                        className="form-control form-control-lg"
-                                        placeholder="Email"
+                                        className={classnames("form-control form-control-lg", {
+                                            "is-invalid" : errors.email
+                                        })}
+                                        placeholder="이메일"
                                         name="email"
                                         value={email}
                                         onChange={this.onChange}
                                     />
+                                    {errors.email && (
+                                        <div className="invalid-feedback">{errors.email}</div>
+                                    )}
                                     <small className="form-text text-muted">
-                                        This site uses Gravatar so if you want a profile image, use a Gravatar email
+                                        이 블로그는 Gravatar로 아바타가 자동등록됩니다. 다른 아바타를 등록하시려면 Gravatar 이메일을 등록해주세요.
                                     </small>
                                 </div>
                                 <div className="form-group">
                                     <input
                                         type="password"
-                                        className="form-control form-control-lg"
-                                        placeholder="Password"
+                                        className={classnames("form-control form-control-lg", {
+                                            "is-invalid" : errors.password
+                                        })}
+                                        placeholder="패스워드"
                                         name="password"
                                         value={password}
                                         onChange={this.onChange}
                                     />
+                                    {errors.password && (
+                                        <div className="invalid-feedback">{errors.password}</div>
+                                    )}
                                 </div>
                                 <div className="form-group">
                                     <input
                                         type="password"
-                                        className="form-control form-control-lg"
-                                        placeholder="Comfirm password"
+                                        className={classnames("form-control form-control-lg", {
+                                            "is-invalid" : errors.password2
+                                        })}
+                                        placeholder="패스워드 재입력"
                                         name="password2"
                                         value={password2}
                                         onChange={this.onChange}
                                     />
+                                    {errors.password2 && (
+                                        <div className="invalid-feedback">{errors.password2}</div>
+                                    )}
                                 </div>
                                 <input type="submit" className="btn btn-info btn-block mt-4"/>
                             </form>
